@@ -1,0 +1,15 @@
+@(experimentSummaries: Seq[nebula.ExperimentSummary])
+
+@import nebula._
+@import java.io.File
+@import global._
+
+@defining(experimentSummaries.collect({case x: ExperimentSummaryBufferedImage => x})) { images =>
+  @Html("<div " + images.map(x => "%s=\"/assets/images/%s\"".format(x.name, IO.writeImage(new File(PlayGlobal.publicRoot, "images"), x.value).getName)).mkString(" ") + ">")
+    @defining(experimentSummaries.collect({case x: ExperimentSummaryDouble => x}).map(_.value)) { doubleValues =>
+      @Html(doubleValues.map(_.formatted("%.2f")).mkString("<p>","</p><p>","</p>"))
+    }
+  </div>
+}
+
+

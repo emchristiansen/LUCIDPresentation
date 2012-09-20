@@ -1,0 +1,24 @@
+@(message: String)
+
+@import global.PlayGlobal
+@import nebula._
+
+@main("Visualizer for LUCID") {
+<ul id="tableNames">
+  @PlayGlobal.tableNames.map { tableName =>
+  <li tableName="@tableName">
+    @tableName
+  </li>
+  }
+</ul>
+
+<div id="resultsTable">
+</div>
+
+<!-- <h2>Plot</h2> -->
+<div id="resultsPlot">
+  <img src="/assets/images/goldfish_girl.jpg">
+</div>
+}
+
+

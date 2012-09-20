@@ -1,0 +1,33 @@
+@(id: String, table: nebula.Table)
+
+<!-- TODO: Make the numbering scheme for table entries consistent. -->
+<!-- For some reason, div works better than span for the table entries. -->
+
+<h1>@table.title</h1>
+<table id="@id">
+  <thead>
+    <tr>
+      @for((columnLabel, column) <- ("" :: table.columnLabels.toList).zipWithIndex) {
+      <th class="column-label" row="0" column="@column">
+	<div>
+	  @columnLabel
+	</div>
+      </th>
+      }	
+  <thead>
+  <tbody>
+    @for(((rowLabel, rowEntries), rowIndex) <- table.rowLabels.zip(table.entries).zipWithIndex) {
+      <tr>
+	<th class="row-label" row="@{rowIndex + 1}" column="0"> 
+	  <div>
+	    @rowLabel
+	  </div>
+	</th>
+	@for((entry, columnIndex) <- rowEntries.zipWithIndex) {
+	  <td row="@{rowIndex + 1}" column="@{columnIndex + 1}"> 
+	    @TableEntry(entry)
+	  </td>
+        }
+    }
+  <tbody>
+</table>
